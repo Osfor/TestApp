@@ -24,7 +24,9 @@ ENV cert_file=""
 ENV priv_key_file=""
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TestApp.dll", "--TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_Path=$cert_file", "--TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_KeyPath=$priv_key_file"]
+
+ENTRYPOINT exec dotnet, TestApp.dll, --TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_Path=$cert_file, --TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_KeyPath=$priv_key_file
+#ENTRYPOINT ["dotnet", "TestApp.dll", "--TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_Path=$cert_file", "--TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_KeyPath=$priv_key_file"]
 
 
 

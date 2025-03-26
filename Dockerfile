@@ -20,8 +20,8 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./TestApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
-ENV cert_file
-ENV priv_key_file
+ENV cert_file ""
+ENV priv_key_file ""
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TestApp.dll", "--cert_file=${cert_file}", "--priv_key_file=${priv_key_file}"]

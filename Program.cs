@@ -5,7 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //reads docker run args and overrides settings
-builder.Configuration.AddEnvironmentVariables("TestApp_");
+builder.Configuration
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables("TestApp_");
 
 var app = builder.Build();
 

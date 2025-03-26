@@ -1,8 +1,5 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-ENV cert_file = "/var/cert/fullchain.pem"
-ENV priv_key_file = "/var/cert/privatekey.pem"
-
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -23,6 +20,8 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./TestApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+ENV cert_file = "/var/cert/fullchain.pem"
+ENV priv_key_file = "/var/cert/privatekey.pem"
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TestApp.dll", "--cert_file=${cert_file}", "--priv_key_file=${priv_key_file}"]

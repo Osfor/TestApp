@@ -12,8 +12,6 @@ builder.Configuration
 
 var app = builder.Build();
 
-foreach (var a in args) Console.WriteLine("ENV: " + a);
-
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();

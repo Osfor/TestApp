@@ -9,6 +9,8 @@ builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddEnvironmentVariables("TestApp_");
 
+foreach (var a in args) Console.WriteLine("ENV: " + a);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -22,9 +22,11 @@ RUN dotnet publish "./TestApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 FROM base AS final
 ENV cert_file=""
 ENV priv_key_file=""
+ARG p1="--TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_Path=${cert_file}"
+ARG p2="TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_KeyPath=${priv_key_file}"
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TestApp.dll", --TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_Path=$cert_file, --TestApp_Kestrel_Endpoints_HttpsInlineCertAndKeyFile_Certificate_KeyPath=$priv_key_file]
+ENTRYPOINT ["dotnet", "TestApp.dll", p1, p2]
 
 
 

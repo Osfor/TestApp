@@ -7,11 +7,12 @@ builder.Services.AddControllers();
 //reads docker run args and overrides settings
 builder.Configuration
     .AddJsonFile("appsettings.json")
-    .AddEnvironmentVariables("TestApp_");
-
-foreach (var a in args) Console.WriteLine("ENV: " + a);
+    .AddCommandLine(args);
+    //.AddEnvironmentVariables("TestApp_");
 
 var app = builder.Build();
+
+foreach (var a in args) Console.WriteLine("ENV: " + a);
 
 // Configure the HTTP request pipeline.
 
